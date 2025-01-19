@@ -21,3 +21,11 @@ docker run -it \
  postgres:13
 
 ```
+
+```bash
+
+pgcli -h localhost -p 5432 -u root -d ny_taxi
+pgcli -h 192.168.1.106 -p 5434 -u root -d ny_taxi
+
+
+```
