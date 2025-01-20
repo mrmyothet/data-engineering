@@ -1,47 +1,86 @@
-import pandas as pd
-from sqlalchemy import create_engine
+# pip install pgcli
+# pip install sqlalchemy
+# pip install psycopg2-binary
+# pip install pyarrow
+
+import argparse, os, sys
 from time import time
-import sys
-
-# yellow_tripdata_2024-01.csv
-filename = sys.argv[1]
-table_name = "yellow_taxi_data"
+import pandas as pd
+import pyarrow.parquet as pq
+from sqlalchemy import create_engine
 
 
-print("pandas version: ", pd.__version__)
+def main(params):
+    user = params.user
+    password = params.password
+    host = params.host
+    port = params.port
+    db = params.db
+    tb = params.tb
+    url = params.url
 
-print("connecting to the postgresql database")
-engine = create_engine("postgresql://root:root@localhost:5432/ny_taxi")
-engine.connect()
+    # Get file name from url
+    filename = url.rsplit("/", 1)[-1].strip()
 
-df = pd.read_csv(filename, nrows=100)
-pd.io.sql.get_schema(df, "yellow_taxi_data", con=engine)
+    print(f"Downloading {filename} ...")
+    os.system(f"curl {url.strip()} -o {filename}")
+    print("\n")
 
-df_iter = pd.read_csv(filename, iterator=True, chunksize=100000)
-df = next(df_iter)
+    engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{db}")
 
-print("length of data frame: ", len(df))
+    # Read file based on csv or parquet
+    if ".csv" in filename:
+        df = pd.read_csv(filename, nrows=10)
+        df_iter = pd.read_csv(filename, iterator=True, chunksize=100000)
+    elif ".parquet" in filename:
+        file = pq.ParquetFile(filename)
+        df = next(file.iter_batches(batch_size=10)).to_pandas()
+        df_iter = file.iter_batches(batch_size=100000)
+    else:
+        print("Error. only .csv or .parquet files allowed.")
+        sys.exit()
 
-df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
-df.head(n=0).to_sql(con=engine, name=table_name, if_exists="replace", index=False)
+    # create the table
+    df.head(0).to_sql(name=tb, con=engine, if_exists="replace")
 
-df.tosql(con=engine, name=table_name, if_exists="append", index=False)
+    # Insert values
+    t_start = time()
+    count = 0
 
-while True:
-    try:
+    for batch in df_iter:
+        count += 1
 
-        t_start = time()
+        if ".parquet" in filename:
+            batch_df = batch.to_pandas()
+        else:
+            batch_df = batch
 
-        df = next(df_iter)
+        print(f"inserting batch {count} ...")
 
-        df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-        df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+        b_start = time()
+        batch_df.to_sql(name=tb, con=engine, if_exists="append")
+        b_end = time()
 
-        df.to_sql(con=engine, name=table_name, if_exists="append", index=False)
+        print(f"inserted! time taken {b_end-b_start:10.3f} seconds. \n")
 
-        t_end = time()
+    t_end = time()
+    print(
+        f"Completed! Total time taken was {t_end-t_start:10.3f} seconds for {count} batches."
+    )
 
-        print("inserted another chunk ..., took %.3f seconds" % (t_end - t_start))
-    except StopIteration:
-        break
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Loading data from .parquet file link to a postgres database"
+    )
+
+    parser.add_argument("--user", help="username for postgres")
+    parser.add_argument("--password", help="password of the user of postgres")
+    parser.add_argument("--host", help="Hostname of postgres")
+    parser.add_argument("--port", help="port for postgres")
+    parser.add_argument("--db", help="database name for postgres")
+    parser.add_argument("--tb", help="table name for postgres")
+    parser.add_argument("--url", help="URL for the data file (.parquet or .csv)")
+
+    args = parser.parse_args()
+    main(args)
