@@ -76,3 +76,15 @@ docker run -it \
 ```bash
 jupyter nbconvert --to=script upload-data.ipynb
 ```
+
+---
+
+### 1.2.5 Running Postgres and pgAdmin with Docker-Compose
+
+```bash
+docker-compose up
+
+docker-compose down
+
+docker-compose up -d
+```
