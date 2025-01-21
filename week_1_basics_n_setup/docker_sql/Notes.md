@@ -56,7 +56,7 @@ docker run -it \
  -v /Users/macos/repos/data-engineering/week_1_basics_n_setup/2_docker_sql/ny_taxi_postgres_data:/var/lib/postgres/data \
  -p 5432:5432 \
  --network pg-network \
- --name pg-database
+ --name pg-database \
  postgres:13
 
  docker run -it \
