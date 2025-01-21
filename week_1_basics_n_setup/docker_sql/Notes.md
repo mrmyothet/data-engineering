@@ -53,7 +53,7 @@ docker run -it \
  -e POSTGRES_USER="root" \
  -e POSTGRES_PASSWORD="root" \
  -e POSTGRES_DB="ny_taxi" \
- -v /Users/macos/repos/data-engineering/week_1_basics_n_setup/docker_sql/ny_taxi_postgres_data:/var/lib/postgres/data \
+ -v ./ny_taxi_postgres_data:/var/lib/postgres/data \
  -p 5432:5432 \
  --network pg-network \
  --name pg-database \
@@ -78,6 +78,46 @@ jupyter nbconvert --to=script upload-data.ipynb
 ```
 
 ---
+
+### 1.2.4 Dockerizing the Ingestion script
+
+```bash
+
+URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
+
+python ingest_data.py \
+  --user=root \
+  --password=root \
+  --host=localhost \
+  --port=5432 \
+  --db=ny_taxi \
+  --tb=yellow_taxi_trips \
+  --url=${URL}
+
+```
+
+```bash
+
+docker build -t taxi_ingest:v001 .
+
+docker run -it \
+  --network=pg-network \
+  taxi_ingest:v001 \
+    --user=root \
+    --password=root \
+    --host=localhost \
+    --port=5432 \
+    --db=ny_taxi \
+    --tb=yellow_taxi_trips \
+    --url=${URL}
+
+```
+
+```bash
+
+python -m http.server
+
+```
 
 ### 1.2.5 Running Postgres and pgAdmin with Docker-Compose
 
