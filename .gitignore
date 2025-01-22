@@ -174,3 +174,8 @@ cython_debug/
 week_1_basics_n_setup/docker_sql/data/
 week_1_basics_n_setup/docker_sql/ny_taxi_postgres_data/
 my-creds.json
+
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
