@@ -1,0 +1,4 @@
+Host de-zoomcamp-mt
+    HostName <external ip>
+    User myothet
+    IdentityFile ~/.ssh/gcp
