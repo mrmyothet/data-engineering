@@ -48,7 +48,7 @@ docker run -it ubuntu bash
 - clone the repo with https option
 
 ```bash
-git clone https://github.com/DataTalksClub/data-engineering-zoomcamp.git
+git clone https://github.com/mrmyothet/data-engineering.git
 ```
 
 ### Install Docker-Compose
@@ -68,5 +68,20 @@ source .bashrc
 which docker-compose
 
 docker-compose --version
+```
 
+### Run docker-compose on gcp
+
+```bash
+docker-compose up -d
+```
+
+### Install pgcli using conda
+
+```bash
+conda install -c conda-forge pgcli
+
+pip install -U mycli
+
+pgcli -h localhost -U root -d ny_taxi
 ```
