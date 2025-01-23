@@ -1,3 +1,5 @@
+### Configure SSH
+
 ```bash
 ssh-keygen -t rsa -f gcp -C myothet -b 2048
 ```
@@ -16,6 +18,11 @@ less .bashrc
 which python
 
 source .bashrc
+```
+
+### Install Docker
+
+```bash
 
 sudo apt-get update
 sudo apt-get install docker.io
@@ -35,5 +42,31 @@ ssh de-zoomcamp-mt
 
 docker run hello-world
 docker run -it ubuntu bash
+
+```
+
+- clone the repo with https option
+
+```bash
+git clone https://github.com/DataTalksClub/data-engineering-zoomcamp.git
+```
+
+### Install Docker-Compose
+
+```bash
+
+mkdir bin
+cd bin
+wget https://github.com/docker/compose/releases/download/v2.32.4/docker-compose-linux-x86_64 -O docker-compose
+chmod +x docker-compose
+./docker-compose --version
+
+nano .bashrc
+export PATH="${HOME}/bin:${PATH}"
+
+source .bashrc
+which docker-compose
+
+docker-compose --version
 
 ```
