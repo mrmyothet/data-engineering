@@ -214,3 +214,6 @@ override.tf.json
 terraform.rc
 
 .terraform.lock.hcl
+
+week_1_basics_n_setup/postgres_docker/pgadmin_data
+week_1_basics_n_setup/postgres_docker/postgres_data

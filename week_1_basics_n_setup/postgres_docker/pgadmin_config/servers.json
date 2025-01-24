@@ -1,0 +1,15 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "pgdatabase",
+      "Group": "Servers",
+      "Host": "pgdatabase",
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "root",
+      "Password": "root",
+      "SSLMode": "prefer",
+      "SavePassword": true
+    }
+  }
+}
