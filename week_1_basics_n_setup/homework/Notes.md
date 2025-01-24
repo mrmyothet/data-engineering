@@ -79,3 +79,32 @@ WHERE lpep_pickup_datetime >= DATE '2019-10-01'
   AND lpep_pickup_datetime < DATE '2019-11-01'
   AND trip_distance > 10;
 ```
+
+### Question 4
+
+```sql
+select MAX(trip_distance)
+from green_tripdata_2019_10
+where lpep_pickup_datetime >= date '2019-10-11'
+and lpep_pickup_datetime < date '2019-10-12'
+--95.78
+
+select MAX(trip_distance)
+from green_tripdata_2019_10
+where lpep_pickup_datetime >= date '2019-10-24'
+and lpep_pickup_datetime < date '2019-10-25'
+--90.75
+
+select MAX(trip_distance)
+from green_tripdata_2019_10
+where lpep_pickup_datetime >= date '2019-10-26'
+and lpep_pickup_datetime < date '2019-10-27'
+--91.56
+
+select MAX(trip_distance)
+from green_tripdata_2019_10
+where lpep_pickup_datetime >= date '2019-10-31'
+and lpep_pickup_datetime < date '2019-11-01'
+--515.89
+
+```
