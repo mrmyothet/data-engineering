@@ -43,36 +43,32 @@ FROM green_tripdata_2019_10
 WHERE lpep_pickup_datetime >= DATE '2019-10-01 00:00:00'
   AND lpep_pickup_datetime < DATE '2019-11-01 00:00:00'
   AND trip_distance <= 1;
-```
 
-```sql
+
 SELECT COUNT(1)
 FROM green_tripdata_2019_10
 WHERE lpep_pickup_datetime >= DATE '2019-10-01'
   AND lpep_pickup_datetime < DATE '2019-11-01'
   AND trip_distance > 1.0
   AND trip_distance <= 3.0;
-```
 
-```sql
+
 SELECT COUNT(1)
 FROM green_tripdata_2019_10
 WHERE lpep_pickup_datetime >= DATE '2019-10-01'
   AND lpep_pickup_datetime < DATE '2019-11-01'
   AND trip_distance > 3.0
   AND trip_distance <= 7.0;
-```
 
-```sql
+
 SELECT COUNT(1)
 FROM green_tripdata_2019_10
 WHERE lpep_pickup_datetime >= DATE '2019-10-01'
   AND lpep_pickup_datetime < DATE '2019-11-01'
   AND trip_distance > 7.0
   AND trip_distance <= 10.0;
-```
 
-```sql
+
 SELECT COUNT(1)
 FROM green_tripdata_2019_10
 WHERE lpep_pickup_datetime >= DATE '2019-10-01'
