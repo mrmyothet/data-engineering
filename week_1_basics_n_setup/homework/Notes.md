@@ -32,6 +32,9 @@ gunzip green_tripdata_2019-10.csv.gz
 
 wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv
 
+curl -kLSs https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz -o green_tripdata_2019-10.csv.gz
+curl -kLSs https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv -o taxi_zone_lookup.csv
+
 ```
 
 ```sql
