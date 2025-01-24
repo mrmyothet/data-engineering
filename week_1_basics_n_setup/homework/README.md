@@ -1,4 +1,4 @@
-### Question 1
+### Question 1. Understanding docker first run
 
 ```bash
 
@@ -9,12 +9,12 @@ pip 24.3.1 from /usr/local/lib/python3.12/site-packages/pip (python 3.12)
 
 ```
 
-### Question 2
+### Question 2. Understanding Docker networking and docker-compose
 
 - service name in docker-compose file is the host name of the database. - db
 - 5433:5432 means 5433 on host computer, 5432 on docker container. - 5432
 
-### Question 3
+### Question 3. Trip Segmentation Count
 
 During the period of October 1st 2019 (inclusive) and November 1st 2019 (exclusive), how many trips, respectively, happened:
 
@@ -76,7 +76,16 @@ WHERE lpep_pickup_datetime >= DATE '2019-10-01'
   AND trip_distance > 10;
 ```
 
-### Question 4
+### Question 4. Longest trip for each day
+
+Which was the pick up day with the longest trip distance? Use the pick up time for your calculations.
+
+Tip: For every day, we only care about one single trip with the longest distance.
+
+- 2019-10-11
+- 2019-10-24
+- 2019-10-26
+- 2019-10-31
 
 ```sql
 select MAX(trip_distance)
