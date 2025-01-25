@@ -19,7 +19,7 @@ df.head(n=0).to_sql(
 )
 
 df_iter = pd.read_csv(
-    "./data/green_tripdata_2019-10.csv", chunksize=100000, iterator=True
+    "./data/green_tripdata_2019-10.csv", chunksize=10000, iterator=True
 )
 
 count = 0
