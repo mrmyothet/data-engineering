@@ -67,5 +67,11 @@ LIMIT  100;
 ### Using GROUP BY to calculate the number of trips per day
 
 ```sql
-
+SELECT
+  CAST(tpep_dropoff_datetime as DATE) as "day",
+  COUNT(1)
+FROM
+  yellow_tripdata t
+GROUP BY
+  CAST(tpep_dropoff_datetime as DATE);
 ```
