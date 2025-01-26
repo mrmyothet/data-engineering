@@ -44,10 +44,15 @@ curl -kLSs https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/
 ```sql
 SELECT COUNT(1)
 FROM green_tripdata_2019_10
-WHERE lpep_pickup_datetime >= DATE '2019-10-01 00:00:00'
-  AND lpep_pickup_datetime < DATE '2019-11-01 00:00:00'
+WHERE lpep_pickup_datetime >= '2019-10-01 00:00:00'
+  AND lpep_pickup_datetime < '2019-11-01 00:00:00'
   AND trip_distance <= 1;
 
+SELECT COUNT(1)
+FROM green_tripdata_2019_10
+WHERE lpep_pickup_datetime >= DATE '2019-10-01'
+  AND lpep_pickup_datetime < DATE '2019-11-01'
+  AND trip_distance > 1.0;
 
 SELECT COUNT(1)
 FROM green_tripdata_2019_10

@@ -4,23 +4,27 @@
 import pandas as pd
 from sqlalchemy import create_engine
 from time import time
+import pyarrow.parquet as pq
 
-engine = create_engine("postgresql://postgres:postgres@localhost:5432/ny_taxi")
-engine.connect()
+filename = "./data/yellow_tripdata_2019-01.parquet"
+file = pq.ParquetFile(filename)
 
-df = pd.read_csv("./data/green_tripdata_2019-10.csv", nrows=1000)
+table_name = "yellow_tripdata_2019_01"
 
-df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
-df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
-# print(pd.io.sql.get_schema(df, 'green_tripdata_2019_10', con=engine))
+connection_str = "postgresql://postgres:postgres@localhost:5432/ny_taxi"
+engine = create_engine(connection_str)
+# engine.connect()
 
-df.head(n=0).to_sql(
-    "green_tripdata_2019_10", con=engine, if_exists="replace", index=False
-)
+df = next(file.iter_batches(batch_size=10)).to_pandas()
 
-df_iter = pd.read_csv(
-    "./data/green_tripdata_2019-10.csv", chunksize=100000, iterator=True
-)
+df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+
+# create the table
+df.head(n=0).to_sql(name=table_name, con=engine, if_exists="replace", index=False)
+
+# Insert values
+df_iter = file.iter_batches(batch_size=100000)
 
 count = 0
 t_start = time()
@@ -30,7 +34,8 @@ for batch in df_iter:
     print(f"inserting batch {count} ...")
 
     b_start = time()
-    batch.to_sql("green_tripdata_2019_10", con=engine, if_exists="append", index=False)
+    batch = batch.to_pandas()
+    batch.to_sql(name=table_name, con=engine, if_exists="append", index=False)
     b_end = time()
 
     print(f"inserted batch {count} in {b_end - b_start:.2f} seconds")
