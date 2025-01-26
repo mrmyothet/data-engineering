@@ -122,3 +122,29 @@ and lpep_pickup_datetime < date '2019-11-01'
 --515.89
 
 ```
+
+---
+
+### Question 5. Three biggest pickup zones
+
+Which were the top pickup locations with over 13,000 in total_amount (across all trips) for 2019-10-18?
+
+Consider only lpep_pickup_datetime when filtering by date.
+
+```sql
+select
+  cast(lpep_pickup_datetime as date) as "day",
+  "PULocationID",
+  sum(total_amount) as total_amount
+from
+  green_tripdata
+where
+  cast(lpep_pickup_datetime as date) = '2019-10-18'
+group by 1, 2
+having sum(total_amount) > 13000
+order by total_amount desc
+```
+
+```sql
+select * from zones where "LocationID" in (74, 75, 166)
+```
