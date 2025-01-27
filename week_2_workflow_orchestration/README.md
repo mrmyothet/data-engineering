@@ -9,3 +9,8 @@ Orchestrators are commonly used in domains like:
 - Microservices (service communication and automation)
 - Container management (Kubernetes for orchestrating containers)
 - Workflow automation (task scheduling and dependency management)
+
+### Kestra
+
+Kestra is an open-source, event-driven orchestration platform that makes both scheduled and event-driven workflows easy.  
+By bringing Infrastructure as Code best practices to data, process, and microservice orchestration, you can build reliable workflows directly from the UI in just a few lines of YAML.
