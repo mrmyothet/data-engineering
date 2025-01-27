@@ -14,3 +14,16 @@ Orchestrators are commonly used in domains like:
 
 Kestra is an open-source, event-driven orchestration platform that makes both scheduled and event-driven workflows easy.  
 By bringing Infrastructure as Code best practices to data, process, and microservice orchestration, you can build reliable workflows directly from the UI in just a few lines of YAML.
+
+### Install Kestra with docker
+
+```bash
+docker run \
+--pull=always \
+--rm -it \
+-p 8080:8080 \
+--user=root \
+-v /var/run/docker.sock:/var/run/docker.sock \
+-v /tmp:/tmp \
+kestra/kestra:latest server local
+```
