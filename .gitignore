@@ -215,7 +215,10 @@ terraform.rc
 
 .terraform.lock.hcl
 
-week_1_basics_n_setup/postgres_docker/pgadmin_data
-week_1_basics_n_setup/postgres_docker/postgres_data
+docker_terraform/docker_sql/ny_taxi_postgres_data
+docker_terraform/docker_sql/data
 
-week_1_basics_n_setup/homework/data
+docker_terraform/postgres_docker/pgadmin_data
+docker_terraform/postgres_docker/postgres_data
+
+docker_terraform/homework/data
