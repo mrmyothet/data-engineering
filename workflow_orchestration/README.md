@@ -36,7 +36,9 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 git config --global alias.cm "commit -m"
 ```
 
-### Kestra properties
+### Getting Started with Kestra
+
+##### Kestra properties
 
 - Inputs
 
