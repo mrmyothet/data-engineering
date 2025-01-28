@@ -35,3 +35,31 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 
 git config --global alias.cm "commit -m"
 ```
+
+### Kestra properties
+
+- Inputs
+
+```yaml
+inputs:
+  - id: variable_name
+    type: STRING
+    defaults: example_string
+
+{{ inputs.variable_name }}
+```
+
+- Outputs
+
+```bash
+{{ outputs.task_id.vars.output_name }}
+```
+
+- Triggers
+
+```yaml
+triggers:
+  - id: hour_trigger
+    type: io.kestra.core.models.triggers.types.Schedule
+    cron: 0 * * * *
+```
