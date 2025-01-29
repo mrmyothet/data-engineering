@@ -25,7 +25,7 @@ tasks:
 
   - id: output_gh_stars
     type: io.kestra.plugin.core.log.Log
-    message: "Number of stars : {{ outputs.python_script.vars.gh_stars }}"
+    message: "Number of stars : {{outputs.python_script.vars.gh_stars }}"
 
   - id: send_notification
     type: io.kestra.plugin.notifications.discord.DiscordExecution
@@ -33,3 +33,9 @@ tasks:
     username: Kestra
     avatarUrl: "{{inputs.kestra_logo}}"
     url: "{{inputs.discord_webhook_url}}"
+
+triggers:
+  - id: trigger
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: 0 * * * *
+    disabled: true
