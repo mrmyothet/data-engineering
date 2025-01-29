@@ -1,0 +1,19 @@
+id: myflow
+namespace: company.team
+
+tasks:
+  - id: python_script
+    type: io.kestra.plugin.scripts.python.Commands
+    namespaceFiles:
+      enabled: true
+    beforeCommands:
+      - python -m venv .venv
+      - . .venv/bin/activate
+      - pip install -r scripts/requirements.txt
+    commands:
+      - python scripts/api_example.py
+    runner: PROCESS
+
+  - id: output_gh_stars
+    type: io.kestra.plugin.core.log.Log
+    message: "Number of stars : {{ outputs.python_script.vars.gh_stars }}"
