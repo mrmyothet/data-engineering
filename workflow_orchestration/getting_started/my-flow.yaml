@@ -1,6 +1,15 @@
 id: myflow
 namespace: company.team
 
+inputs:
+  - id: kestra_logo
+    type: STRING
+    defaults: https://avatars.githubusercontent.com/u/59033362?v=4
+
+  - id: discord_webhook_url
+    type: STRING
+    defaults: https://discord.com/api/webhooks/1334127559100600340/PlGhGXy_1SabWLS-zZn2OqOANmfzcfmfKM3ZLzNaugBA_r9sTvkE37Gjetr1k32sU2u-
+
 tasks:
   - id: python_script
     type: io.kestra.plugin.scripts.python.Commands
@@ -17,3 +26,10 @@ tasks:
   - id: output_gh_stars
     type: io.kestra.plugin.core.log.Log
     message: "Number of stars : {{ outputs.python_script.vars.gh_stars }}"
+
+  - id: send_notification
+    type: io.kestra.plugin.notifications.discord.DiscordExecution
+    content: "Total of GitHub Stars : {{ outputs.python_script.vars.gh_stars }}"
+    username: Kestra
+    avatarUrl: "{{inputs.kestra_logo}}"
+    url: "{{inputs.discord_webhook_url}}"
