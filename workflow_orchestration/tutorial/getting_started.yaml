@@ -1,0 +1,25 @@
+id: gettting_started_video
+namespace: dev
+
+description:
+  # Getting Started
+  Let's `write` some **markdown** - [first flow](https://t.ly/Vemr0)
+
+labels:
+  owner: myothet
+  project: kestra_tutorial
+
+tasks:
+  - id: hello_world
+    type: io.kestra.plugin.core.log.Log
+    message: Hello World!
+    description:
+      # Hello World
+      This task logs `Hello World!` to the console.
+  - id: log_task
+    type: io.kestra.plugin.core.log.Log
+    message: Hello this is a task
+
+  - id: api
+    type: io.kestra.plugin.fs.http.Request
+    uri: https://dummyjson.com/products
