@@ -1,0 +1,18 @@
+id: unreliable_flow
+namespace: dev
+
+tasks:
+  - id: fail
+    type: io.kestra.plugin.scripts.shell.Commands
+    runner: PROCESS
+    commands:
+      - exit 1
+errors:
+  - id: alert_on_failure
+    type: io.kestra.plugin.notifications.slack.SlackIncomingWebhook
+    url: "{{secret('SLACK_WEBHOOK')}}" # https://hooks.slack.com/services/xyz/xyz/xyz
+    payload: |
+      {
+        "channel": "#alerts", 
+        "text": "Failure alert for flow {{flow.namespace}}.{{flow.id}} with ID {{execution.id}}"
+      }
