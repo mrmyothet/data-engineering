@@ -1,0 +1,10 @@
+id: private_docker_image
+namespace: dev
+
+tasks:
+  - id: custom_image
+    type: io.kestra.plugin.scripts.python.Script
+    docker:
+      image: ghcr.io/kestra-io/pydata:latest
+    script: |
+      print("This runs using a private container image")
