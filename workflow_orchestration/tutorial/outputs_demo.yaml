@@ -1,0 +1,11 @@
+id: outputs_demo
+namespace: dev
+
+tasks:
+  - id: api
+    type: io.kestra.plugin.core.http.Request
+    uri: "http://dummyjson.com/products"
+
+  - id: log_response
+    type: io.kestra.plugin.core.log.Log
+    message: "{{outputs.api.body}}"
