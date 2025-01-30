@@ -1,0 +1,20 @@
+id: inputs_demo
+namespace: dev
+
+inputs:
+  - id: user
+    type: STRING
+    defaults: Myo Thet
+
+  - id: api_url
+    type: STRING
+    defaults: https://dummyjson.com/products
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hey there, {{inputs.user}}
+
+  - id: api_call
+    type: io.kestra.plugin.core.http.Request
+    uri: "{{inputs.api_url}}"
