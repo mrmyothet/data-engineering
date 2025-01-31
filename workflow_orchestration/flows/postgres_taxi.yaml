@@ -1,12 +1,12 @@
 id: postgres_taxi
 namespace: zoomcamp
 
-inputs:
-  - id: taxi
+inputs: 
+  - id: taxi 
     type: SELECT
     displayName: Select Taxi Type
-    values: ["yellow", "green"]
-    defaults: "yellow"
+    values: ['yellow', 'green']
+    defaults: 'yellow'
 
   - id: year
     type: SELECT
@@ -17,11 +17,10 @@ inputs:
   - id: month
     type: SELECT
     displayName: Select Month
-    values:
-      ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+    values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
     defaults: "01"
 
-variables:
+variables: 
   file: "{{inputs.taxi}}_tripdata_{{inputs.year}}-{{inputs.month}}.csv"
   staging_table: "public.{{inputs.taxi}}_tripdata_staging"
   table: "public.{{inputs.taxi}}_tripdata"
@@ -30,5 +29,14 @@ variables:
 tasks:
   - id: set_label
     type: io.kestra.plugin.core.execution.Labels
-    labels:
+    labels: 
       file: "{{render(vars.file)}}"
+
+  - id: extract
+    type: io.kestra.plugin.scripts.shell.Commands
+    outputFiles: 
+      - "*.csv"
+    taskRunner: 
+      type: io.kestra.plugin.core.runner.Process
+    commands: 
+      - wget -qO- https://github.com/DataTalksClub/nyc-tlc-data/releases/download/{{inputs.taxi}}/{{render(vars.file)}}.gz | gunzip > {{render(vars.file)}}
