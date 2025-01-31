@@ -222,3 +222,5 @@ docker_terraform/postgres_docker/pgadmin_data
 docker_terraform/postgres_docker/postgres_data
 
 docker_terraform/homework/data
+
+workflow_orchestration/pgadmin_data
