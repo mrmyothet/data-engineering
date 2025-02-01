@@ -1,18 +1,18 @@
 services:
   pgdatabase:
     image: postgres:17-alpine
-    container_name: pg-database
+    container_name: pgdatabase
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=ny_taxi
+      - POSTGRES_DB=postgres-zoomcamp
     volumes:
       - "./postgres_data:/var/lib/postgresql/data: rw"
     ports:
       - "5432:5432"
   pgadmin:
     image: dpage/pgadmin4
-    container_name: pg-admin
+    container_name: pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.com
       - PGADMIN_DEFAULT_PASSWORD=pgadmin
