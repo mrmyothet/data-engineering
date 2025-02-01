@@ -1,13 +1,13 @@
 {
   "Servers": {
     "1": {
-      "Name": "postgres",
+      "Name": "pg-database",
       "Group": "Servers",
-      "Host": "postgres",
+      "Host": "pg-database",
       "Port": 5432,
       "MaintenanceDB": "postgres",
-      "Username": "kestra",
-      "Password": "kestra",
+      "Username": "postgres",
+      "Password": "postgres",
       "SSLMode": "prefer",
       "SavePassword": true
     }
