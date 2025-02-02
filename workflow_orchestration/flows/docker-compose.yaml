@@ -72,8 +72,8 @@ services:
     image: postgres
     container_name: postgres_zoomcamp
     environment:
-      POSTGRES_USER: kestra
-      POSTGRES_PASSWORD: kestra
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres_zoomcamp
     ports:
       - "5432:5432"
