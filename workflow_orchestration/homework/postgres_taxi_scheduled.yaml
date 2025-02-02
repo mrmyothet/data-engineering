@@ -1,4 +1,4 @@
-id: 02_postgres_taxi_scheduled
+id: postgres_taxi_scheduled
 namespace: zoomcamp
 description: |
   Best to add a label `backfill:true` from the UI to track executions created via a backfill.
@@ -257,9 +257,9 @@ tasks:
 pluginDefaults:
   - type: io.kestra.plugin.jdbc.postgresql
     values:
-      url: jdbc:postgresql://host.docker.internal:5432/postgres-zoomcamp
-      username: kestra
-      password: k3str4
+      url: jdbc:postgresql://host.docker.internal:5432/postgres_zoomcamp
+      username: postgres
+      password: postgres
 
 triggers:
   - id: green_schedule
