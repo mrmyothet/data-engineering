@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  webserver:
+    container_name: airflow
+    build:
+      context: ..
+      dockerfile: ../Dockerfile
+    environment:
+      - PYTHONPATH=/home/airflow
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=sqlite:///$AIRFLOW_HOME/airflow.db
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+
+    volumes:
+      - ./dags:/home/airflow/dags
+
+    ports:
+      - "8080:8080"
+
+    command: >
+      bash -c "
+        airflow scheduler -D;
+        rm /home/airflow/airflow-scheduler.*;
+        airflow webserver"
+
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /home/airflow/airflow-scheduler.pid ]"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
