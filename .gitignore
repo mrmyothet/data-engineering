@@ -227,3 +227,4 @@ workflow_orchestration/pg-database/pgadmin_data
 workflow_orchestration/pg-database/postgres_data
 
 workflow_orchestration/airflow/.google
+workflow_orchestration/airflow/logs
