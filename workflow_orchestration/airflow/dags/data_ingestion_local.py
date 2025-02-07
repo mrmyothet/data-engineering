@@ -8,5 +8,12 @@ with local_workflow:
 
     wget_task = BashOperator(
         task_id="wget_task",
-        bash_command='echo "hello world"',
+        bash_command='echo "hello world from wget task"',
     )
+
+    ingest_task = BashOperator(
+        task_id="wget_task",
+        bash_command='echo "hello world from ingest task"',
+    )
+
+    wget_task >> ingest_task
