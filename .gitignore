@@ -228,3 +228,5 @@ workflow_orchestration/pg-database/postgres_data
 
 workflow_orchestration/airflow/.google
 workflow_orchestration/airflow/logs
+
+data_warehouse/terraform/keys/
