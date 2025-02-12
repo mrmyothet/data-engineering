@@ -31,5 +31,6 @@ resource "google_storage_bucket" "ny_taxi_data_mt" {
 resource "google_bigquery_dataset" "ny_taxi" {
   dataset_id = var.bq_dataset_name
   location   = var.location
+  delete_contents_on_destroy = true
 
 }
