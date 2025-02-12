@@ -16,7 +16,17 @@ import pyarrow.parquet as pq
 PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 BUCKET = os.environ.get("GCP_GCS_BUCKET")
 
-dataset_file = "green_tripdata_2019-01.parquet"
+# dataset_file = "green_tripdata_2019-01.parquet"
+# dataset_file = "green_tripdata_2019-02.parquet"
+# dataset_file = "green_tripdata_2019-03.parquet"
+
+# dataset_file = "yellow_tripdata_2019-01.parquet"
+# dataset_file = "yellow_tripdata_2019-02.parquet"
+# dataset_file = "yellow_tripdata_2019-03.parquet"
+
+# dataset_file = "yellow_tripdata_2020-01.parquet"
+# dataset_file = "yellow_tripdata_2020-02.parquet"
+dataset_file = "yellow_tripdata_2020-03.parquet"
 
 dataset_url = f"https://d37ci6vzurychx.cloudfront.net/trip-data/{dataset_file}"
 path_to_local_home = os.environ.get("AIRFLOW_HOME", "/opt/airflow")
