@@ -12,7 +12,7 @@ variable "region" {
 
 variable "credentials" {
   description = "Path to the service account key file"
-  default     = "./keys/my_creds.json"
+  default     = "./.google/credentials/google_credentials.json"
 
 }
 

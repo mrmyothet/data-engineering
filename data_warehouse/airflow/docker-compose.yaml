@@ -79,7 +79,7 @@ x-airflow-common: &airflow-common
     GOOGLE_APPLICATION_CREDENTIALS: /.google/credentials/google_credentials.json
     AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT: 'google-cloud-platform://?extra__google_cloud_platform__key_path=/.google/credentials/google_credentials.json'
     GCP_PROJECT_ID: 'ny-rides-mt'
-    GCP_GCS_BUCKET: "dtc_de_ny_rides_mt_gcs_bucket"
+    GCP_GCS_BUCKET: "ny_taxi_data_mt"
 
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
