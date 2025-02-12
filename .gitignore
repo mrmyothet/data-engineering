@@ -233,3 +233,5 @@ workflow_orchestration/airflow/logs
 
 data_warehouse/homework/data
 data_warehouse/bigquery/data/
+
+data_warehouse/airflow/logs/
