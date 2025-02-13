@@ -235,3 +235,5 @@ data_warehouse/homework/data
 data_warehouse/bigquery/data/
 
 data_warehouse/airflow/logs/
+
+dlt_course/export_credentials.sh
