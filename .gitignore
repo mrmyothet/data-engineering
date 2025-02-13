@@ -239,3 +239,4 @@ data_warehouse/airflow/logs/
 dlt_course/export_credentials.sh
 
 dlt_course/my_data
+dlt_course/resource_source.duckdb
