@@ -236,8 +236,8 @@ data_warehouse/bigquery/data/
 
 data_warehouse/airflow/logs/
 
-dlt_course/export_credentials.sh
+dlt/export_credentials.sh
 
-dlt_course/my_data
-dlt_course/resource_source.duckdb
-dlt_course/dlt_resource.duckdb
+dlt/my_data
+dlt/resource_source.duckdb
+dlt/dlt_resource.duckdb
