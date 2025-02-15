@@ -239,5 +239,6 @@ data_warehouse/airflow/logs/
 dlt/export_credentials.sh
 
 dlt/my_data
-# dlt/resource_source.duckdb
-# dlt/dlt_resource.duckdb
+dlt/resource_source.duckdb
+dlt/dlt_resource.duckdb
+dlt/quick_start.duckdb
