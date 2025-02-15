@@ -241,5 +241,3 @@ dlt/export_credentials.sh
 dlt/my_data
 # dlt/resource_source.duckdb
 # dlt/dlt_resource.duckdb
-
-# dlt_course/dlt_resource.duckdb
