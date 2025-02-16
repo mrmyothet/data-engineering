@@ -247,3 +247,8 @@ dlt/workshop/ny_taxi_data.duckdb
 dlt/workshop/ny_taxi_manual.db
 dlt/workshop/dlt_ipykernel_launcher.duckdb
 dlt/workshop/ny_taxi_incremental.duckdb
+
+dlt/workshop/.dlt/secrets.toml
+
+dlt/ny_taxi_pipeline.duckdb
+dlt/ny_taxi_pipeline.duckdb.wal
