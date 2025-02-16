@@ -245,3 +245,4 @@ dlt/quick_start.duckdb
 dlt/resource_source_new.duckdb
 dlt/workshop/ny_taxi_data.duckdb
 dlt/workshop/ny_taxi_manual.db
+dlt/workshop/dlt_ipykernel_launcher.duckdb
