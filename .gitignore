@@ -243,3 +243,4 @@ dlt/resource_source.duckdb
 dlt/dlt_resource.duckdb
 dlt/quick_start.duckdb
 dlt/resource_source_new.duckdb
+dlt/workshop/ny_taxi_data.duckdb
