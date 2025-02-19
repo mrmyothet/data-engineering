@@ -35,4 +35,24 @@ pip install dlt
 ```bash
 pip install dbt-core
 
+dbt init 
+Enter a name for your project(letters, digits, underscore): taxi_rides_ny
+
+Runtime Error
+  No adapters available. Learn how to install an adapter by going to https://docs.getdbt.com/docs/connect-adapters#install-using-the-cli
+
 ```
+
+```bash 
+pip install dbt-postgres
+
+dbt --version 
+Core:
+  - installed: 1.9.2
+  - latest:    1.9.2 - Up to date!
+
+Plugins:
+  - postgres: 1.9.0 - Up to date!
+```
+
+Profile taxi_rides_ny written to /home/myothet/.dbt/profiles.yml
