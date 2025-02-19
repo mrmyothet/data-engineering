@@ -21,3 +21,16 @@ bq-dbt:
       dataset: ny_taxi
       threads: 4
       key_file: ../.google/credentials/google_credentials.json
+
+taxi_rides_ny:
+  outputs:
+    dev:
+      dbname: ny_taxi
+      host: localhost
+      pass: postgres
+      port: 5432
+      schema: ny_taxi
+      threads: 4
+      type: postgres
+      user: postgres
+  target: dev
