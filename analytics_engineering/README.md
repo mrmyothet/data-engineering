@@ -56,3 +56,11 @@ Plugins:
 ```
 
 Profile taxi_rides_ny written to /home/myothet/.dbt/profiles.yml
+
+### load data hacks
+
+```sql
+SELECT COUNT(*) FROM `trips_data_all.green_tripdata`; --8,035,139
+
+SELECT COUNT(*) FROM `trips_data_all.yellow_tripdata`; --109,247,514
+```
