@@ -18,7 +18,7 @@ variable "credentials" {
 
 variable "bq_dataset_name" {
   description = "BigQuery dataset name"
-  default     = "ny_taxi"
+  default     = "trips_data_all"
 
 }
 
