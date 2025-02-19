@@ -1,0 +1,23 @@
+pg-dbt:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: postgres
+      password: postgres
+      port: 5432
+      dbname: ny_taxi
+      schema: dummy
+      threads: 4
+
+bq-dbt:
+  target: dev
+  outputs: 
+    dev: 
+      type: bigquery
+      method: service-account
+      project: ny-rides-mt
+      dataset: ny_taxi
+      threads: 4
+      key_file: ../.google/credentials/google_credentials.json
