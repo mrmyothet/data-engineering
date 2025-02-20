@@ -3,7 +3,7 @@ This macro will return description of the payment type
 #}
 
 {%
-macro get_payment_type_desctiption(payment_type)
+macro get_payment_type_description(payment_type)
 -%}
     case cast({{payment_type}} as integer)
         when 1 then 'Credit card'
