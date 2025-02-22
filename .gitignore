@@ -252,3 +252,5 @@ dlt/workshop/.dlt/secrets.toml
 
 dlt/ny_taxi_pipeline.duckdb
 dlt/ny_taxi_pipeline.duckdb.wal
+
+analytics_engineering/airflow/logs/
