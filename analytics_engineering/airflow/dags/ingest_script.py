@@ -3,17 +3,29 @@ import os
 from time import time
 
 import pandas as pd
+from psycopg2 import OperationalError
 from sqlalchemy import create_engine
 
 
-def ingest_callable(user, password, host, port, db, table_name, csv_file, execution_date):
+def ingest_callable(
+    user, password, host, port, db, table_name, csv_file, execution_date
+):
     print(table_name, csv_file, execution_date)
 
-    engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
-    engine.connect()
+    # engine = create_engine("postgresql://postgres:posgres@postgres_db:5432/ny_taxi")
+    engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{db}")
 
-    print('connection established successfully, inserting data...')
+    try:
+        engine.connect()
+        print("connection established successfully ... ")
 
+    except Exception as e:
+        raise Exception(f"postgres database connection failed {e}")
+
+    # print(" inserting data ... ")
+
+
+"""
     t_start = time()
     df_iter = pd.read_csv(csv_file, iterator=True, chunksize=100000)
 
@@ -46,3 +58,4 @@ def ingest_callable(user, password, host, port, db, table_name, csv_file, execut
         t_end = time()
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
+"""

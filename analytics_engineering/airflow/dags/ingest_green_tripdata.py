@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from datetime import datetime
 
@@ -13,30 +16,33 @@ from ingest_script import ingest_callable
 AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
 
 
-PG_HOST = os.getenv('PG_HOST')
-PG_USER = os.getenv('PG_USER')
-PG_PASSWORD = os.getenv('PG_PASSWORD')
-PG_PORT = os.getenv('PG_PORT')
-PG_DATABASE = os.getenv('PG_DATABASE')
+PG_HOST = os.getenv("PG_HOST")
+PG_USER = os.getenv("PG_USER")
+PG_PASSWORD = os.getenv("PG_PASSWORD")
+PG_PORT = os.getenv("PG_PORT")
+PG_DATABASE = os.getenv("PG_DATABASE")
 
 
 local_workflow = DAG(
     "Ingest_Green_TripData",
     schedule_interval="0 6 2 * *",
     start_date=datetime(2019, 1, 1),
-    end_date=datetime(2020, 12,31)
+    end_date=datetime(2019, 3, 31),
+    # end_date=datetime(2020, 12,31)
 )
 
 
-URL_PREFIX = 'https://s3.amazonaws.com/nyc-tlc/trip+data' 
-URL_TEMPLATE = URL_PREFIX + '/green_tripdata_{{ execution_date.strftime(\'%Y-%m\') }}.csv'
-OUTPUT_FILE_TEMPLATE = AIRFLOW_HOME + '/output_{{ execution_date.strftime(\'%Y-%m\') }}.csv'
-TABLE_NAME_TEMPLATE = 'green_taxi_{{ execution_date.strftime(\'%Y_%m\') }}'
+URL_PREFIX = "https://s3.amazonaws.com/nyc-tlc/trip+data"
+URL_TEMPLATE = URL_PREFIX + "/green_tripdata_{{ execution_date.strftime('%Y-%m') }}.csv"
+OUTPUT_FILE_TEMPLATE = (
+    AIRFLOW_HOME + "/output_{{ execution_date.strftime('%Y-%m') }}.csv"
+)
+TABLE_NAME_TEMPLATE = "green_taxi_{{ execution_date.strftime('%Y_%m') }}"
 
 with local_workflow:
     wget_task = BashOperator(
-        task_id='wget',
-        bash_command=f'curl -sSL {URL_TEMPLATE} > {OUTPUT_FILE_TEMPLATE}'
+        task_id="wget",
+        bash_command=f"curl -sSL {URL_TEMPLATE} > {OUTPUT_FILE_TEMPLATE}",
     )
 
     ingest_task = PythonOperator(
@@ -49,7 +55,7 @@ with local_workflow:
             port=PG_PORT,
             db=PG_DATABASE,
             table_name=TABLE_NAME_TEMPLATE,
-            csv_file=OUTPUT_FILE_TEMPLATE
+            csv_file=OUTPUT_FILE_TEMPLATE,
         ),
     )
 
