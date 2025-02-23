@@ -32,17 +32,34 @@ local_workflow = DAG(
 )
 
 
-URL_PREFIX = "https://s3.amazonaws.com/nyc-tlc/trip+data"
-URL_TEMPLATE = URL_PREFIX + "/green_tripdata_{{ execution_date.strftime('%Y-%m') }}.csv"
+# URL_PREFIX = "https://s3.amazonaws.com/nyc-tlc/trip+data"
+URL_PREFIX = "https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata"
+
+# URL_TEMPLATE = URL_PREFIX + "/green_tripdata_{{ execution_date.strftime('%Y-%m') }}.csv"
+URL_TEMPLATE = URL_PREFIX + "_{{ execution_date.strftime('%Y-%m') }}.csv.gz"
+
 OUTPUT_FILE_TEMPLATE = (
+    AIRFLOW_HOME + "/output_{{ execution_date.strftime('%Y-%m') }}.csv.gz"
+)
+
+OUTPUT_FILE_TEMPLATE = (
+    AIRFLOW_HOME + "/output_{{ execution_date.strftime('%Y-%m') }}.csv.gz"
+)
+
+OUTPUT_FILE_CSV_TEMPLATE = (
     AIRFLOW_HOME + "/output_{{ execution_date.strftime('%Y-%m') }}.csv"
 )
+
 TABLE_NAME_TEMPLATE = "green_taxi_{{ execution_date.strftime('%Y_%m') }}"
 
 with local_workflow:
-    wget_task = BashOperator(
+    curl_task = BashOperator(
         task_id="wget",
         bash_command=f"curl -sSL {URL_TEMPLATE} > {OUTPUT_FILE_TEMPLATE}",
+    )
+
+    gunzip_task = BashOperator(
+        task_id="gunzip", bash_command=f"gunzip -f {OUTPUT_FILE_TEMPLATE}"
     )
 
     ingest_task = PythonOperator(
@@ -55,8 +72,8 @@ with local_workflow:
             port=PG_PORT,
             db=PG_DATABASE,
             table_name=TABLE_NAME_TEMPLATE,
-            csv_file=OUTPUT_FILE_TEMPLATE,
+            csv_file=OUTPUT_FILE_CSV_TEMPLATE,
         ),
     )
 
-    wget_task >> ingest_task
+    curl_task >> gunzip_task >> ingest_task
