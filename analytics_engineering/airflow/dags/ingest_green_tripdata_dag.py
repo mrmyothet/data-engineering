@@ -26,9 +26,8 @@ PG_DATABASE = os.getenv("PG_DATABASE")
 local_workflow = DAG(
     "Ingest_Green_TripData",
     schedule_interval="0 6 2 * *",
-    start_date=datetime(2019, 1, 1),
-    end_date=datetime(2019, 3, 31),
-    # end_date=datetime(2020, 12,31)
+    start_date=datetime(2019, 4, 1),
+    end_date=datetime(2019, 12, 31),
 )
 
 
