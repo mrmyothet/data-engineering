@@ -36,11 +36,11 @@ URL_PREFIX = "https://github.com/DataTalksClub/nyc-tlc-data/releases/download/gr
 URL_TEMPLATE = URL_PREFIX + "_{{ execution_date.strftime('%Y-%m') }}.csv.gz"
 
 OUTPUT_FILE_TEMPLATE = (
-    AIRFLOW_HOME + "/output_{{ execution_date.strftime('%Y-%m') }}.csv.gz"
+    AIRFLOW_HOME + "/output_green{{ execution_date.strftime('%Y-%m') }}.csv.gz"
 )
 
 OUTPUT_FILE_TEMPLATE = (
-    AIRFLOW_HOME + "/output_{{ execution_date.strftime('%Y-%m') }}.csv.gz"
+    AIRFLOW_HOME + "/output_green{{ execution_date.strftime('%Y-%m') }}.csv.gz"
 )
 
 OUTPUT_FILE_CSV_TEMPLATE = (
