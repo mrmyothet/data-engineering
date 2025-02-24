@@ -27,7 +27,7 @@ local_workflow = DAG(
     "Ingest_Yellow_TripData",
     schedule_interval="0 6 2 * *",
     start_date=datetime(2019, 1, 1),
-    end_date=datetime(2019, 1, 31),
+    end_date=datetime(2019, 3, 31),
 )
 
 
@@ -42,7 +42,8 @@ OUTPUT_FILE_TEMPLATE = (
 OUTPUT_FILE_CSV_TEMPLATE = (
     AIRFLOW_HOME + "/output_yellow_{{ execution_date.strftime('%Y-%m') }}.csv"
 )
-TABLE_NAME_TEMPLATE = "yellow_taxi_{{ execution_date.strftime('%Y_%m') }}"
+# TABLE_NAME_TEMPLATE = "yellow_taxi_{{ execution_date.strftime('%Y_%m') }}"
+TABLE_NAME = "yellow_tripdata"
 
 with local_workflow:
     curl_task = BashOperator(
@@ -63,7 +64,7 @@ with local_workflow:
             host=PG_HOST,
             port=PG_PORT,
             db=PG_DATABASE,
-            table_name=TABLE_NAME_TEMPLATE,
+            table_name=TABLE_NAME,
             csv_file=OUTPUT_FILE_CSV_TEMPLATE,
         ),
     )
