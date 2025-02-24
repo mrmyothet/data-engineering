@@ -10,6 +10,7 @@ def ingest_yellow_callable(
     user, password, host, port, db, table_name, csv_file, execution_date
 ):
     print(table_name, csv_file, execution_date)
+    print(f"User:{user}, Password: {password}, Host:{host}, Port:{port}, DB: {db}")
 
     # engine = create_engine("postgresql://postgres:posgres@postgres_db:5432/ny_taxi")
     engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{db}")
