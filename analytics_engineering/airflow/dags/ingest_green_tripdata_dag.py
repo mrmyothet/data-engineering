@@ -26,8 +26,8 @@ PG_DATABASE = os.getenv("PG_DATABASE")
 local_workflow = DAG(
     "Ingest_Green_TripData",
     schedule_interval="0 6 2 * *",
-    start_date=datetime(2019, 4, 1),
-    end_date=datetime(2019, 12, 31),
+    start_date=datetime(2020, 7, 1),
+    end_date=datetime(2020, 12, 30),
 )
 
 
@@ -44,7 +44,7 @@ OUTPUT_FILE_TEMPLATE = (
 )
 
 OUTPUT_FILE_CSV_TEMPLATE = (
-    AIRFLOW_HOME + "/output_{{ execution_date.strftime('%Y-%m') }}.csv"
+    AIRFLOW_HOME + "/output_green{{ execution_date.strftime('%Y-%m') }}.csv"
 )
 
 # TABLE_NAME_TEMPLATE = "green_taxi_{{ execution_date.strftime('%Y_%m') }}"
