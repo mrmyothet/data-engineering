@@ -10,7 +10,7 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 
-from ingest_green_callable import ingest_green_callable
+from ingest_green_pg import ingest_green_pg
 
 
 AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
@@ -62,7 +62,7 @@ with local_workflow:
 
     ingest_task = PythonOperator(
         task_id="ingest",
-        python_callable=ingest_green_callable,
+        python_callable=ingest_green_pg,
         op_kwargs=dict(
             user=PG_USER,
             password=PG_PASSWORD,
