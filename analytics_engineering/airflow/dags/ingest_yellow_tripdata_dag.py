@@ -42,7 +42,7 @@ OUTPUT_FILE_TEMPLATE = (
 OUTPUT_FILE_CSV_TEMPLATE = (
     AIRFLOW_HOME + "/output_yellow_{{ execution_date.strftime('%Y-%m') }}.csv"
 )
-# TABLE_NAME_TEMPLATE = "yellow_taxi_{{ execution_date.strftime('%Y_%m') }}"
+
 TABLE_NAME = "yellow_tripdata"
 
 with local_workflow:

@@ -39,15 +39,10 @@ OUTPUT_FILE_TEMPLATE = (
     AIRFLOW_HOME + "/output_green{{ execution_date.strftime('%Y-%m') }}.csv.gz"
 )
 
-OUTPUT_FILE_TEMPLATE = (
-    AIRFLOW_HOME + "/output_green{{ execution_date.strftime('%Y-%m') }}.csv.gz"
-)
-
 OUTPUT_FILE_CSV_TEMPLATE = (
     AIRFLOW_HOME + "/output_green{{ execution_date.strftime('%Y-%m') }}.csv"
 )
 
-# TABLE_NAME_TEMPLATE = "green_taxi_{{ execution_date.strftime('%Y_%m') }}"
 TABLE_NAME = "green_tripdata"
 
 with local_workflow:
