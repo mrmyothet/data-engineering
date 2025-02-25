@@ -14,3 +14,9 @@ mkdir -p ./dags ./logs ./plugins
 
 echo -e "AIRFLOW_UID=$(id -u)" > .env
 ```
+
+### Install package for BigQueryCreateExternalTableOperator
+```bash 
+pip install apache-airflow-providers-google
+
+```
