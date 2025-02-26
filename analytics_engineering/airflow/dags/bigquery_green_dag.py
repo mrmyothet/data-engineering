@@ -23,11 +23,12 @@ AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
 URL_PREFIX = "https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata"
 URL_TEMPLATE = URL_PREFIX + "_{{ execution_date.strftime('%Y-%m') }}.csv.gz"
 OUTPUT_FILE_TEMPLATE = (
-    AIRFLOW_HOME + "/output_green{{ execution_date.strftime('%Y-%m') }}.csv.gz"
+    AIRFLOW_HOME + "/output_green_{{ execution_date.strftime('%Y-%m') }}.csv.gz"
 )
 OUTPUT_FILE_CSV_TEMPLATE = (
-    AIRFLOW_HOME + "/output_green{{ execution_date.strftime('%Y-%m') }}.csv"
+    AIRFLOW_HOME + "/output_green_{{ execution_date.strftime('%Y-%m') }}.csv"
 )
+GCS_OUTPUT_FILE_CSV_FILE_NAME = "green_{{ execution_date.strftime('%Y-%m') }}.csv"
 
 TABLE_NAME = "green_tripdata"
 
@@ -65,26 +66,26 @@ with DAG(
         python_callable=upload_to_gcs,
         op_kwargs={
             "bucket": BUCKET,
-            "object_name": OUTPUT_FILE_CSV_TEMPLATE,
-            "local_file": f"{AIRFLOW_HOME}/{OUTPUT_FILE_CSV_TEMPLATE}",
+            "object_name": GCS_OUTPUT_FILE_CSV_FILE_NAME,
+            "local_file": f"{OUTPUT_FILE_CSV_TEMPLATE}",
         },
     )
 
-    bigquery_external_table_task = BigQueryCreateExternalTableOperator(
-        task_id="bigquery_external_table_task",
-        table_resource={
-            "tableReference": {
-                "projectId": PROJECT_ID,
-                "datasetId": BIGQUERY_DATASET,
-                "tableId": "green_tripdata_2020_01",
-            },
-            "externalDataConfiguration": {
-                "sourceFormat": "PARQUET",
-                "sourceUris": [f"gs://{BUCKET}/{OUTPUT_FILE_CSV_TEMPLATE}"],
-                "autodetect": True,
-            },
-        },
-    )
+    # bigquery_external_table_task = BigQueryCreateExternalTableOperator(
+    #     task_id="bigquery_external_table_task",
+    #     table_resource={
+    #         "tableReference": {
+    #             "projectId": PROJECT_ID,
+    #             "datasetId": BIGQUERY_DATASET,
+    #             "tableId": "green_tripdata_2020_01",
+    #         },
+    #         "externalDataConfiguration": {
+    #             "sourceFormat": "PARQUET",
+    #             "sourceUris": [f"gs://{BUCKET}/{OUTPUT_FILE_CSV_TEMPLATE}"],
+    #             "autodetect": True,
+    #         },
+    #     },
+    # )
 
     # (curl_task >> gunzip_task >> local_to_gcs_task >> bigquery_external_table_task)
     (curl_task >> gunzip_task >> local_to_gcs_task)
