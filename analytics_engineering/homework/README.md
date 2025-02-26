@@ -8,3 +8,9 @@
 - load data from bigquery public data - also number of records does not match
 
 ---
+
+Now, I can upload csv files to gcs using airflow 
+
+- analytics_engineering/airflow/dags/bigquery_green_dag.py
+
+When using `BigQueryCreateExternalTableOperator` it only works for one csv file. 

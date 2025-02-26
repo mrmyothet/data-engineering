@@ -48,7 +48,7 @@ with DAG(
     tags=["bigquery"],
     schedule_interval="0 6 2 * *",
     start_date=datetime(2019, 1, 1),
-    end_date=datetime(2019, 1, 31),
+    end_date=datetime(2019, 3, 31),
     max_active_runs=1,
 ) as dag:
 
@@ -71,21 +71,21 @@ with DAG(
         },
     )
 
-    # bigquery_external_table_task = BigQueryCreateExternalTableOperator(
-    #     task_id="bigquery_external_table_task",
-    #     table_resource={
-    #         "tableReference": {
-    #             "projectId": PROJECT_ID,
-    #             "datasetId": BIGQUERY_DATASET,
-    #             "tableId": "green_tripdata_2020_01",
-    #         },
-    #         "externalDataConfiguration": {
-    #             "sourceFormat": "PARQUET",
-    #             "sourceUris": [f"gs://{BUCKET}/{OUTPUT_FILE_CSV_TEMPLATE}"],
-    #             "autodetect": True,
-    #         },
-    #     },
-    # )
+    bigquery_external_table_task = BigQueryCreateExternalTableOperator(
+        task_id="bigquery_external_table_task",
+        table_resource={
+            "tableReference": {
+                "projectId": PROJECT_ID,
+                "datasetId": BIGQUERY_DATASET,
+                "tableId": "green_tripdata",
+            },
+            "externalDataConfiguration": {
+                "sourceFormat": "CSV",
+                "sourceUris": [f"gs://{BUCKET}/{GCS_OUTPUT_FILE_CSV_FILE_NAME}"],
+                "autodetect": True,
+            },
+        },
+    )
 
-    # (curl_task >> gunzip_task >> local_to_gcs_task >> bigquery_external_table_task)
-    (curl_task >> gunzip_task >> local_to_gcs_task)
+    (curl_task >> gunzip_task >> local_to_gcs_task >> bigquery_external_table_task)
+    # (curl_task >> gunzip_task >> local_to_gcs_task)
