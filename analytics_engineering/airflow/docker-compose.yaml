@@ -88,7 +88,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     # - ~/.google/credentials/:/.google/credentials:ro
-    - /c/Users/Administrator/.google/credentials/:/.google/credentials:ro
+    - /home/myothet/repos/data-engineering/analytics_engineering/.google/credentials/:/.google/credentials:ro
     - /home/myothet/repos/data-engineering/analytics_engineering/airflow/.env:/opt/airflow/.env
 
   user: "${AIRFLOW_UID:-50000}:0"
