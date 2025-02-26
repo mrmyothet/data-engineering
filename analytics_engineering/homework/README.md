@@ -90,3 +90,50 @@ SELECT * FROM `ny-rides-mt.trips_data_all.ext_yellow_taxi`;
 
 - Upload for hire vehical (FHV) csv files from 
 https://github.com/DataTalksClub/nyc-tlc-data/releases/download/fhv/fhv_tripdata_2019-01.csv.gz
+
+- Create external table referring to gcs path
+```sql
+CREATE OR REPLACE EXTERNAL TABLE `ny-rides-mt.trips_data_all.ext_fhv_tripdata`
+OPTIONS (
+  format = 'CSV',
+  uris = ['gs://ny_taxi_data_mt/fhv_2019-*.csv']
+);
+```
+
+- You should have exactly 43,244,696 records in your FHV table
+```sql
+SELECT COUNT(*) FROM `ny-rides-mt.trips_data_all.fhv_tripdata`; --43244696
+```
+
+
+- Create Table from External tables not to depend on csv files sources
+```sql
+CREATE TABLE `ny-rides-mt.trips_data_all.fhv_tripdata` as 
+SELECT * FROM `ny-rides-mt.trips_data_all.ext_fhv_tripdata`;
+
+```
+
+- Delete external table - ext_fhv_tripdata 
+- Delete csv files from GCS
+
+---
+
+- Creating taxi_zone_lookup external table referring to gcs path
+```sql
+CREATE OR REPLACE EXTERNAL TABLE `ny-rides-mt.trips_data_all.ext_taxi_zone_lookup`
+OPTIONS (
+  format = 'CSV',
+  uris = ['gs://ny_taxi_data_mt/taxi_zone_lookup.csv']
+);
+```
+
+- Create Table from external table 
+```sql
+
+CREATE TABLE `ny-rides-mt.trips_data_all.taxi_zone_lookup` as 
+SELECT * FROM `ny-rides-mt.trips_data_all.ext_taxi_zone_lookup`;
+
+```
+
+- Delete external table - ext_taxi_zone_lookup 
+- Delete csv files from GCS
