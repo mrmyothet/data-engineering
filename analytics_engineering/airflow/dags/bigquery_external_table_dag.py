@@ -26,7 +26,7 @@ with DAG(
             },
             "externalDataConfiguration": {
                 "sourceFormat": "CSV",
-                "sourceUris": [f"gs://{BUCKET}/green_tripdata_*.csv"],  # Use wildcard
+                "sourceUris": [f"gs://{BUCKET}/green_*.csv"],  # Use wildcard
                 "autodetect": True,
             },
         },
