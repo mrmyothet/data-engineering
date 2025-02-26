@@ -22,6 +22,31 @@ Try using `GCSToBigQueryOperator`
 Got error 
 ```bash
 google.api_core.exceptions.BadRequest: 400 Provided Schema does not match Table ny-rides-mt:trips_data_all.green_tripdata. Field congestion_surcharge has changed type from STRING to INTEGER; 
+
 reason: invalid, message: Provided Schema does not match Table ny-rides-mt:trips_data_all.green_tripdata. Field congestion_surcharge has changed type from STRING to INTEGER; 
+
 reason: invalid, message: It looks like you are appending to an existing table with autodetect enabled. Disabling autodetect may resolve this.
+```
+
+---
+
+- Upload csv files from https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata to gcs
+
+- Create external table referring to gcs path
+```sql
+CREATE OR REPLACE EXTERNAL TABLE `ny-rides-mt.trips_data_all.ext_green_taxi`
+OPTIONS (
+  format = 'CSV',
+  uris = ['gs://ny_taxi_data_mt/green_2019-*.csv', 'gs://ny_taxi_data_mt/green_2020-*.csv']
+);
+
+SELECT COUNT(*) FROM `ny-rides-mt.trips_data_all.ext_green_taxi`; --7778101
+```
+
+- Create Table from External tables not to depend on csv files sources
+
+```sql
+CREATE TABLE `ny-rides-mt.trips_data_all.green_tripdata` as 
+SELECT * FROM `ny-rides-mt.trips_data_all.ext_green_taxi`;
+
 ```

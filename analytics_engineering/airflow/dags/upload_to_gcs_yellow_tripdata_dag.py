@@ -36,8 +36,8 @@ with DAG(
     dag_id="upload_to_gcs_yellow_tripdata",
     tags=["GCS"],
     schedule_interval="0 6 2 * *",
-    start_date=datetime(2019, 1, 1),
-    end_date=datetime(2019, 3, 31),
+    start_date=datetime(2020, 1, 1),
+    end_date=datetime(2020, 12, 31),
     max_active_runs=1,
 ) as dag:
 
