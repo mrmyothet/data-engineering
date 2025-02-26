@@ -6,7 +6,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 
-def ingest_green_callable(
+def ingest_green_pg(
     user, password, host, port, db, table_name, csv_file, execution_date
 ):
     print(table_name, csv_file, execution_date)
