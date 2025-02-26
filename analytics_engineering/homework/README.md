@@ -85,3 +85,8 @@ SELECT * FROM `ny-rides-mt.trips_data_all.ext_yellow_taxi`;
 
 - Delete external table - ext_yellow_taxi 
 - Delete csv files from GCS
+
+---
+
+- Upload for hire vehical (FHV) csv files from 
+https://github.com/DataTalksClub/nyc-tlc-data/releases/download/fhv/fhv_tripdata_2019-01.csv.gz
