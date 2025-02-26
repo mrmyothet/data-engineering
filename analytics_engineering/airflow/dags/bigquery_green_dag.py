@@ -44,12 +44,11 @@ default_args = {
 # DAG declaration - using a Context Manager (an implicit way)
 with DAG(
     dag_id="bigquery_dag",
+    tags=["bigquery"],
     schedule_interval="0 6 2 * *",
-    start_date=datetime(2020, 7, 1),
-    end_date=datetime(2020, 12, 30),
-    catchup=False,
+    start_date=datetime(2019, 1, 1),
+    end_date=datetime(2019, 1, 31),
     max_active_runs=1,
-    tags=["dtc-de"],
 ) as dag:
 
     curl_task = BashOperator(
@@ -87,4 +86,5 @@ with DAG(
         },
     )
 
-    (curl_task >> gunzip_task >> local_to_gcs_task >> bigquery_external_table_task)
+    # (curl_task >> gunzip_task >> local_to_gcs_task >> bigquery_external_table_task)
+    (curl_task >> gunzip_task >> local_to_gcs_task)

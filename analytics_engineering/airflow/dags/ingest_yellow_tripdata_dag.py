@@ -25,6 +25,7 @@ PG_DATABASE = os.getenv("PG_DATABASE")
 
 local_workflow = DAG(
     "Ingest_Yellow_TripData",
+    tags=["postgres_db"],
     schedule_interval="0 6 2 * *",
     start_date=datetime(2020, 4, 1),
     end_date=datetime(2020, 12, 31),
