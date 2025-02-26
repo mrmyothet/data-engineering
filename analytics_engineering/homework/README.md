@@ -33,6 +33,7 @@ reason: invalid, message: It looks like you are appending to an existing table w
 - Upload csv files from https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata to gcs
 
 - Create external table referring to gcs path
+
 ```sql
 CREATE OR REPLACE EXTERNAL TABLE `ny-rides-mt.trips_data_all.ext_green_taxi`
 OPTIONS (
@@ -40,7 +41,12 @@ OPTIONS (
   uris = ['gs://ny_taxi_data_mt/green_2019-*.csv', 'gs://ny_taxi_data_mt/green_2020-*.csv']
 );
 
+```
+
+- You should have exactly 7,778,101 records in your Green Taxi table
+```sql
 SELECT COUNT(*) FROM `ny-rides-mt.trips_data_all.ext_green_taxi`; --7778101
+
 ```
 
 - Create Table from External tables not to depend on csv files sources
@@ -50,3 +56,32 @@ CREATE TABLE `ny-rides-mt.trips_data_all.green_tripdata` as
 SELECT * FROM `ny-rides-mt.trips_data_all.ext_green_taxi`;
 
 ```
+
+- Delete external table - ext_green_taxi 
+- Delete csv files from GCS
+
+---
+
+- Upload yellow tripdata csv files from https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata to GCS
+- Create external table referring to gcs path
+```sql
+CREATE OR REPLACE EXTERNAL TABLE `ny-rides-mt.trips_data_all.ext_yellow_taxi`
+OPTIONS (
+  format = 'CSV',
+  uris = ['gs://ny_taxi_data_mt/yellow_2019-*.csv', 'gs://ny_taxi_data_mt/yellow_2020-*.csv']
+);
+```
+- You should have exactly 109,047,518 records in your Yellow Taxi table
+```sql
+SELECT COUNT(*) FROM `ny-rides-mt.trips_data_all.ext_yellow_taxi`; -- 109047518
+```
+
+- Create Table from External tables not to depend on csv files sources
+```sql
+CREATE TABLE `ny-rides-mt.trips_data_all.yellow_tripdata` as 
+SELECT * FROM `ny-rides-mt.trips_data_all.ext_yellow_taxi`;
+
+```
+
+- Delete external table - ext_yellow_taxi 
+- Delete csv files from GCS
