@@ -258,3 +258,9 @@ analytics_engineering/airflow/logs/
 batch/zones
 batch/taxi_zone_lookup.csv
 batch/taxi_zone_lookup (2).csv:Zone.Identifier
+
+batch/fhvhv/
+batch/fhvhv_tripdata_2021-01.csv
+batch/fhvhv_tripdata_2021-01.parquet
+batch/head.csv
+batch/yellow_tripdata_2024-10.parquet
