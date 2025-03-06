@@ -254,3 +254,7 @@ dlt/ny_taxi_pipeline.duckdb
 dlt/ny_taxi_pipeline.duckdb.wal
 
 analytics_engineering/airflow/logs/
+
+batch/zones
+batch/taxi_zone_lookup.csv
+batch/taxi_zone_lookup (2).csv:Zone.Identifier

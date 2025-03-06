@@ -20,7 +20,14 @@ spark-shell
 :quit
 ```
 
+## To run Spark with Jupyter
+
 ```bash
 export PYTHONPATH="${SPARK_HOME}/python/:$PYTHONPATH"
 export PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9.5-src.zip:$PYTHONPATH"
+```
+
+```bash
+export SPARK_LOCAL_IP=192.168.160.37
+
 ```
